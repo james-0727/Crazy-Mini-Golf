@@ -14,6 +14,7 @@ public class BallController : MonoBehaviour
     [SerializeField] private float _rotationSpeed = 2f;
     [SerializeField] private float _stoppingMagnitude = 0.1f;
     [SerializeField] private LineRenderer _lineRenderer;
+    [SerializeField] private float _minimumHeight = -5;
 
     private Vector3 _shotDirection;
     private float _shotPower = 0f;
@@ -23,6 +24,7 @@ public class BallController : MonoBehaviour
 
     private float _aimStartTime;
     private float _lastMagnitude;
+    private Vector3 _lastAimPosition;
 
     void Start()
     {
@@ -54,6 +56,12 @@ public class BallController : MonoBehaviour
                 CameraController.Get().ToggleCameraMode(true);
             }
 
+            // check if ball is out of track
+            if (transform.position.y < _minimumHeight)
+            {
+                ResetBall(_lastAimPosition);
+            }
+
             _lastMagnitude = _rigid.velocity.magnitude;
         }
     }
@@ -67,6 +75,7 @@ public class BallController : MonoBehaviour
                 _isAiming = true;
                 _aimStartTime = Time.time;
                 _lineRenderer.enabled = true;
+                _lastAimPosition = transform.position;
             }
         }
         else

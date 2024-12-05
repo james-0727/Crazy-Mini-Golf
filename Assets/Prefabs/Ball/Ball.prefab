@@ -258,3 +258,4 @@ MonoBehaviour:
   _rotationSpeed: 2
   _stoppingMagnitude: 0.1
   _lineRenderer: {fileID: 5781620060354940044}
+  _minimumHeight: -1
