@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,9 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _singleton;
     private int _currentScore;
+    private float _startTime;
+    private int _minScore = 10;
+    private int _maxScore = 100;
 
     private void Awake()
     {
@@ -32,6 +36,8 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
+
+        _startTime = Time.time;
     }
 
     public static GameManager Get()
@@ -41,6 +47,10 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
+        // calculate the score with time for now
+        // the faster you finish, the more score point you will get
+        _currentScore = Math.Clamp(_maxScore - (int)((Time.time - _startTime) / 2), _minScore, _maxScore);
+
         GameUI.Get().ShowEndGamePanel(_currentScore);
     }
 }

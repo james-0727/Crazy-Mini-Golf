@@ -23,8 +23,9 @@ public class GameUI : MonoBehaviour
 
     public void ShowEndGamePanel(int score)
     {
-        _scoreText.text = score.ToString();
+        _scoreText.text = $"Score : {score}";
         _endGamePanel.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void GotoMenuScene()
