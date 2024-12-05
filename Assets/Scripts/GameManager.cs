@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private float _startTime;
     private int _minScore = 10;
     private int _maxScore = 100;
+    private int _currentLevel;
 
     private void Awake()
     {
@@ -24,13 +25,13 @@ public class GameManager : MonoBehaviour
 
     private void LoadSelectedLevel()
     {
-        int selectedLevel = PlayerPrefs.GetInt("Selected Level", 1);
+        _currentLevel = PlayerPrefs.GetInt("Selected Level", 1);
 
         List<LevelData> levelDatas = LevelData.GetAll();
 
         foreach(LevelData levelData in levelDatas)
         {
-            if (levelData.Level == selectedLevel)
+            if (levelData.Level == _currentLevel)
             {
                 Instantiate(levelData.TrackPrefab);
                 break;
@@ -52,5 +53,11 @@ public class GameManager : MonoBehaviour
         _currentScore = Math.Clamp(_maxScore - (int)((Time.time - _startTime) / 2), _minScore, _maxScore);
 
         GameUI.Get().ShowEndGamePanel(_currentScore);
+
+        int lastUnlockedLvl = PlayerPrefs.GetInt("Last Unlocked Level", 1);
+        if (_currentLevel + 1 > lastUnlockedLvl)
+        {
+            PlayerPrefs.SetInt("Last Unlocked Level", _currentLevel + 1);
+        }
     }
 }

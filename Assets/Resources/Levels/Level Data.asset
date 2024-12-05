@@ -15,3 +15,4 @@ MonoBehaviour:
   _level: 1
   _thumbnail: {fileID: 0}
   _trackPrefab: {fileID: 3336799177687893650, guid: 9ae5f7164669f1344908d69c7615573f, type: 3}
+  _locked: 0

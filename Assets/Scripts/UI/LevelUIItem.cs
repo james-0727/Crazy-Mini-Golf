@@ -13,10 +13,10 @@ public class LevelUIItem : MonoBehaviour
 
     public Button Button => _btn;
 
-    public void SetDetails(int level, bool isLocked)
+    public void SetDetails(int level, bool unLocked)
     {
         _levelText.text = $"Level {level}";
-        _btn.interactable = !isLocked;
-        _lockedObject.SetActive(isLocked);
+        _btn.interactable = unLocked;
+        _lockedObject.SetActive(!unLocked);
     }
 }

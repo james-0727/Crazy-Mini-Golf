@@ -19,11 +19,12 @@ public class MenuUI : MonoBehaviour
     public void RefreshLevelView()
     {
         List<LevelData> levelDatas = LevelData.GetAll();
+        int lastUnlockedLvl = PlayerPrefs.GetInt("Last Unlocked Level", 1);
 
         foreach (LevelData levelData in levelDatas)
         {
-            LevelUIItem UIItem = Instantiate(_item, _contentParent);
-            UIItem.SetDetails(levelData.Level, false);
+            LevelUIItem UIItem = Instantiate(_item, _contentParent); 
+            UIItem.SetDetails(levelData.Level, levelData.Level <= lastUnlockedLvl);
             int level = levelData.Level;
             UIItem.Button.onClick.AddListener(() => OnLevelButtonClicked(level));
         }
