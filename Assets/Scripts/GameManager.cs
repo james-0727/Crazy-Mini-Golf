@@ -7,6 +7,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _singleton;
+    private int _currentScore;
 
     private void Awake()
     {
@@ -31,5 +32,15 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public static GameManager Get()
+    {
+        return _singleton;
+    }
+
+    public void EndGame()
+    {
+        GameUI.Get().ShowEndGamePanel(_currentScore);
     }
 }

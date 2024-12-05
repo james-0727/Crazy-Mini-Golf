@@ -126,7 +126,7 @@ public class BallController : MonoBehaviour
     {
         if (other.tag == "Winning Hole")
         {
-            Debug.Log("Win");
+            GameManager.Get().EndGame();
         }
     }
 }
