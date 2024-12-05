@@ -1,3 +1,4 @@
+using System.Transactions;
 using UnityEngine;
 
 /// <summary>
@@ -11,6 +12,7 @@ public class BallController : MonoBehaviour
     [SerializeField] private float _maxPower = 20f;
     [SerializeField] private float _aimSensitivity = 1f;
     [SerializeField] private float _rotationSpeed = 2f;
+    [SerializeField] private float _stoppingMagnitude = 0.1f;
     [SerializeField] private LineRenderer _lineRenderer;
 
     private Vector3 _shotDirection;
@@ -20,6 +22,7 @@ public class BallController : MonoBehaviour
     private bool _isShot = false;
 
     private float _aimStartTime;
+    private float _lastMagnitude;
 
     void Start()
     {
@@ -39,14 +42,19 @@ public class BallController : MonoBehaviour
             HandleAiming();
             HandleShooting();
         }
-
-        if (_rigid.velocity.magnitude > 0.1f)
-        {
-            _rigid.angularVelocity = _rigid.velocity * _rotationSpeed;
-        }
         else
         {
-            ResetBall(transform.position);
+            if (_rigid.velocity.magnitude > _stoppingMagnitude)
+            {
+                _rigid.angularVelocity = _rigid.velocity * _rotationSpeed;
+            }
+            else if (_rigid.velocity.magnitude < _lastMagnitude)
+            {
+                ResetBall(transform.position);
+                CameraController.Get().ToggleCameraMode(true);
+            }
+
+            _lastMagnitude = _rigid.velocity.magnitude;
         }
     }
 
@@ -58,7 +66,6 @@ public class BallController : MonoBehaviour
             {
                 _isAiming = true;
                 _aimStartTime = Time.time;
-                CameraController.Get().ToggleCameraMode(true);
                 _lineRenderer.enabled = true;
             }
         }
@@ -80,12 +87,14 @@ public class BallController : MonoBehaviour
         if (_isAiming && Input.GetMouseButton(0))
         {
             _shotPower = Mathf.Clamp((Time.time - _aimStartTime) * _aimSensitivity, 0, _maxPower);
+            GameUI.Get().PowerSlider.value = _shotPower / _maxPower;
         }
 
         if (_isAiming && Input.GetMouseButtonUp(0))
         {
             _rigid.AddForce(_shotDirection * _shotPower * _powerMultiplier, ForceMode.Impulse);
             CameraController.Get().ToggleCameraMode(false);
+            GameUI.Get().PowerSlider.value = 0;
 
             // Reset aiming state
             _isAiming = false;
@@ -101,5 +110,14 @@ public class BallController : MonoBehaviour
         _rigid.velocity = Vector3.zero;
         _rigid.angularVelocity = Vector3.zero;
         _isShot = false;
+        _lastMagnitude = 0;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Winning Hole")
+        {
+            Debug.Log("Win");
+        }
     }
 }
