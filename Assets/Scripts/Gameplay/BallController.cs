@@ -109,6 +109,7 @@ public class BallController : MonoBehaviour
             _isAiming = false;
             _isShot = true;
             _lineRenderer.enabled = false;
+            AudioManager.Get().PlayShotSFX();
         }
     }
 
@@ -128,5 +129,10 @@ public class BallController : MonoBehaviour
         {
             GameManager.Get().EndGame();
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        AudioManager.Get().PlayHitSFX();
     }
 }
