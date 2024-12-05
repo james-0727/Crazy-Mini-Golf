@@ -1,5 +1,7 @@
 using UnityEngine;
-
+/// <summary>
+/// Jumping pad
+/// </summary>
 public class JumpPad : MonoBehaviour
 {
     [SerializeField] private float _jumpForce = 10f;

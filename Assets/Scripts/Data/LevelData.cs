@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+/// <summary>
+/// Level Data
+/// </summary>
 [CreateAssetMenu(fileName = "Level Data", menuName = "Game/Level Data", order = 1)]
 public class LevelData : ScriptableObject
 {

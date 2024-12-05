@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Level UI Item
+/// </summary>
 public class LevelUIItem : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _levelText;

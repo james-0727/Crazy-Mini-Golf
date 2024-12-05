@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// UI controller for main menu
+/// </summary>
 public class MenuUI : MonoBehaviour
 {
     [SerializeField] private RectTransform _contentParent;

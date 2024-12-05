@@ -1,5 +1,7 @@
 using UnityEngine;
-
+/// <summary>
+/// Main Camera controller
+/// </summary>
 public class CameraController : MonoBehaviour
 {
     [Header("Camera Settings")]

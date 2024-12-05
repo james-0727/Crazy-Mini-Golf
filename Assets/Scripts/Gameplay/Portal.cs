@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Portal
+/// </summary>
 public class Portal : MonoBehaviour
 {
     [SerializeField] private Transform _linkedPortal;

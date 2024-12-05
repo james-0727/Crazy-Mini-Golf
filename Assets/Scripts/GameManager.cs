@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Game Manager in game scene
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     private static GameManager _singleton;
