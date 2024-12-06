@@ -28,6 +28,15 @@ public class GameUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
+    private void Update()
+    {
+        if (_endGamePanel.activeSelf 
+            && Input.GetKeyDown(KeyCode.Escape))
+        {
+            GotoMenuScene();
+        }
+    }
+
     public void GotoMenuScene()
     {
         SceneManager.LoadScene(0);
